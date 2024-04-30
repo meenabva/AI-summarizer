@@ -1,6 +1,11 @@
 .summary {
-    margin: 30px;
+    margin: 0 0 0 30px;
     overflow-x: hidden;
+}
+
+p {
+    display: block;
+    white-space: pre-wrap;
 }
 
 .back-btn {
