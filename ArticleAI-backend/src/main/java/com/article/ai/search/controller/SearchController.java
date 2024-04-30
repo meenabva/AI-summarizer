@@ -29,12 +29,12 @@ public class SearchController {
 	private SearchResultService searchResultService;
 	
 	@PostMapping
-	public ResponseEntity<SearchResult> saveSearch(@RequestParam String query) throws GeneralSecurityException, IOException{
+	public ResponseEntity<String> saveSearch(@RequestParam String query) throws GeneralSecurityException, IOException{
 		try {
 			return ResponseEntity.ok(searchResultService.saveSearchResult(query));
 		} catch (Exception e) {
 			log.debug("Error while getting response from Gemini API: {}", e);
-			return new ResponseEntity<SearchResult>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

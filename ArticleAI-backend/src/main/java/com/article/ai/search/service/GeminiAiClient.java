@@ -21,9 +21,6 @@ public class GeminiAiClient {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	@Autowired
-	private SearchResultRepository searchResultRepository;
-	
 	@Value("${gemini.apiKey}")
 	private String apiKey;
 
@@ -33,12 +30,13 @@ public class GeminiAiClient {
 	public SearchResult promptGeminiAI(String query) {
 		
 		String prompt = "Write a 1000 word summary on the topic" + query + " with references ";
+		log.debug(apiKey);
 
 		GeminiAiRequest geminiAiRequest = new GeminiAiRequest(prompt);
 
-		//GenerateContentResponse geminiAiResponse = restTemplate.postForObject(apiUrl + "?key=" + apiKey, geminiAiRequest, GenerateContentResponse.class);
 		GeminiAiResponse geminiAiResponse = restTemplate.postForObject(apiUrl + "?key=" + apiKey, geminiAiRequest, GeminiAiResponse.class);
-		//log.debug("response: {}", geminiAiResponse.toString());
+		log.debug("response: {}", geminiAiResponse.toString());
+		
 		if (geminiAiResponse == null || geminiAiResponse.getCandidates().get(0) == null
 				|| geminiAiResponse.getCandidates().isEmpty()) {
 			throw new InternalServerException("No response received from Gemini API");
@@ -50,8 +48,6 @@ public class GeminiAiClient {
 		SearchResult searchResult = new SearchResult();
 		searchResult.setArticleText(text);
 		searchResult.setQuery(query);
-		
-		searchResult = searchResultRepository.save(searchResult);
 
 		return searchResult;
 	}

@@ -18,14 +18,16 @@ public class SearchResultServiceImpl implements SearchResultService {
 	private GeminiAiClient geminiAIClient;
 	
 	@Override
-	public SearchResult saveSearchResult(String query) {
+	public String saveSearchResult(String query) {
 		Optional<SearchResult> optionalSearchResult = searchResultRepository.findSearchResultByQuery(query);
 		
 		if(optionalSearchResult.isPresent()) {
-			return optionalSearchResult.get();
+			return optionalSearchResult.get().getId();
 		} 
 		
-		return geminiAIClient.promptGeminiAI(query);
+		SearchResult savedSearchResult = searchResultRepository.save(geminiAIClient.promptGeminiAI(query));
+		
+		return savedSearchResult.getId();
 	}
 
 	@Override
