@@ -51,6 +51,7 @@ const SearchBar = (props: Props) => {
         </div>
       </form>
       {loading && <ReactLoading className="my-10 mx-auto" type="spin" color="rgb(126 34 206)" height={250} width={125} />}
+      
     </div>
   )
 }
