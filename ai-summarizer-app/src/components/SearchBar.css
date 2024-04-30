@@ -2,3 +2,9 @@
     margin: 30px;
     overflow-x: hidden;
 }
+
+.back-btn {
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+}
