@@ -24,6 +24,7 @@ const SearchBar = (props: Props) => {
     }).catch((e) => {
       setLoading(false)
       console.log("error: " + e)})
+      throw new Error("Error occured while fetching summary")
   }
 
   return (

@@ -40,6 +40,11 @@ public class SearchController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<SearchResult> getSearchById(@PathVariable String id) {
-		return ResponseEntity.ok(searchResultService.getSearchResultById(id));
+		try {
+			return ResponseEntity.ok(searchResultService.getSearchResultById(id));
+		} catch (Exception e) {
+			log.debug("Error while fetching summary by ID: {}", e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 }

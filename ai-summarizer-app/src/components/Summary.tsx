@@ -3,6 +3,8 @@ import './SearchBar.css'
 import ReactMarkdown from "react-markdown"
 import { getSearchById } from "../services/SearchService"
 import { Link, useParams } from "react-router-dom"
+import ErrorPage from "./ErrorPage"
+import ErrorBoundary from "./ErrorBoundary"
 
 type Props = {
     id: string
@@ -11,8 +13,9 @@ type Props = {
 const Summary = (props: any) => {
 
     const [text, setText] = useState("")
-    const { searchId } = useParams<{searchId?: string | undefined}>()
+    const { searchId } = useParams<{searchId?: string}>()
     const [copied, setCopied] = useState(false);
+    const [hasError, setHasError] = useState(false)
 
   const copyToClipboard = async () => {
     try {
@@ -24,19 +27,25 @@ const Summary = (props: any) => {
   };
 
     useEffect(() => {
-      getSummaryById()
+        if(searchId === undefined) {
+            console.log("search id: " + searchId)
+            setHasError(true)
+        }
+        getSummaryById()
     }, [])
 
     const getSummaryById = async () => {
         getSearchById(searchId).then((res) => {
             setText(res.data.articleText)
         }).catch((e) => {
-            console.log(e)
+            console.log("Error: " + e)
         })
     }
 
     return (
         <>
+        <ErrorBoundary> 
+        <div>
         <div className="flex items-stretch justify-between">
         <div className="text-left">
         <Link to="/">
@@ -66,6 +75,8 @@ const Summary = (props: any) => {
             }
             </pre>
         </div>
+        </div>
+        </ErrorBoundary>
         </>
     )
 }
