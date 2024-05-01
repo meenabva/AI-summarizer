@@ -1,6 +1,8 @@
 # AI-Topic-Summarizer
 Application that generates a summary based on a given topic
 
+Try it out here: https://aisummarizer-1.onrender.com/
+
 ## Overview
 
 The AI Topic Summarizer application generates a summary with reference links for a given topic. The application uses the Gemini AI API to generate the summary.
@@ -28,7 +30,7 @@ git clone https://github.com/meenabva/AI-Topic-Summarizer
 ```
 2. Replace the database details and API details in the application.properties file
    
-3. Build and Run the backend of the project:
+3. Build and Run the  the project:
 
 ```
 cd AI-Topic-Summarizer/ArticleAI-backend
@@ -36,12 +38,5 @@ mvn clean install
 java -jar target/ArticleAI-backend.jar
 ```
 
-4. Run the frontend of the project:
-
-```
-cd ai-summarizer-app
-npm install
-npm run dev
-```
 
 
