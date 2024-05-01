@@ -14,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<SearchBar />} />
           <Route path="/:searchId" element={<Summary/>} />
+          <Route path="/error" element={<ErrorPage />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
